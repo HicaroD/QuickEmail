@@ -1,2 +1,9 @@
 # QuickEmail
-A CLI software for sendind emails quickly through SMTP server written in Go.
+A command-line interface for sendind emails quick and easily through SMTP server.
+
+## Installation
+
+## Usage
+
+## License
+[MIT](./LICENSE)
