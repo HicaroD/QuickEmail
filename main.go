@@ -67,7 +67,7 @@ func (email_sender EmailSender) authenticate_host(password string) smtp.Auth {
 func main(){
     gmail_address := ServiceAddress {"smtp.gmail.com", "587"}
     user := User {"hdanrlley1@gmail.com"}
-    message := Message {"Important topic", "THE LAST DANCE"}
+    message := Message {"Important topic", "Some important message for the recipient :)"}
 
     email_sender := EmailSender {
         service_address: gmail_address,
