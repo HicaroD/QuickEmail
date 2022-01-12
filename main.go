@@ -113,5 +113,5 @@ func main() {
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
 	email_sender.send_email(auth, message, []string{*recipient})
 
-	fmt.Printf("E-mail successfully sent to %s", *recipient)
+	fmt.Printf("\nE-mail successfully sent to %s\n", *recipient)
 }
