@@ -3,7 +3,7 @@ A command-line interface for sendind emails (Gmail) quick and easily. This softw
 
 ## Requirements
 
-1. Golang installed in your machine
+1. [Golang@1.17.6](https://go.dev/dl/) or more recent.
 
 ## Installation
 
@@ -18,6 +18,7 @@ This will add your program to the `~/go/bin/` folder. You can run the program wi
 ## Usage
 
 You can run this command to send an e-mail.
+
 ```
 ~/go/bin/QuickEmail -topic "The topic of your e-mail" -send "Your message" -to "The recipient of your e-mail"
 ```
