@@ -20,7 +20,7 @@ This will add your program to the `~/go/bin/` folder. You can run the program wi
 You can run this command to send an e-mail.
 
 ```
-~/go/bin/QuickEmail -topic "The topic of your e-mail" -send "Your message" -to "The recipient of your e-mail"
+~/go/bin/QuickEmail -topic "The topic of your e-mail" -send "Your message" -to "Email recipient"
 ```
 
 After run this command, the program will ask you two things: e-mail and password. Your password will not be showed in the console while you type!
