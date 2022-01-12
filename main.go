@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"golang.org/x/crypto/ssh/terminal"
 	"log"
 	"net/smtp"
 	"strings"
@@ -62,16 +63,43 @@ func (email_sender EmailSender) authenticate_host(password string) smtp.Auth {
 	return auth
 }
 
-func main() {
-	email := flag.String("email", "", "Your email")
+func parse_all_command_line_arguments() (*string, *string, *string) {
 	topic := flag.String("topic", "", "The topic of the e-mail")
-	message_body := flag.String("message", "", "The actual e-mail that you want to send")
-	recipient := flag.String("recipient", "", "The recipient e-mail")
+	message_body := flag.String("send", "", "The actual message that you want to send")
+	recipient := flag.String("to", "", "The recipient e-mail")
 
 	flag.Parse()
 
+	return topic, message_body, recipient
+}
+
+func ask_for_user_email() string {
+	var email string
+
+	fmt.Print("Insert your e-mail: ")
+	fmt.Scanln(&email)
+
+	return email
+}
+
+func ask_for_user_password() string {
+	fmt.Print("Insert your password (INVISIBLE INPUT): ")
+	password, err := terminal.ReadPassword(0)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return string(password)
+}
+
+func main() {
 	gmail_address := ServiceAddress{"smtp.gmail.com", "587"}
-	user := User{*email}
+
+	topic, message_body, recipient := parse_all_command_line_arguments()
+	email, password := ask_for_user_email(), ask_for_user_password()
+
+	user := User{email}
 	message := Message{*topic, *message_body}
 
 	email_sender := EmailSender{
@@ -79,10 +107,6 @@ func main() {
 		user:            user,
 		message:         message,
 	}
-
-	var password string
-	fmt.Print("Insert your password: ")
-	fmt.Scanln(&password)
 
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
 	err := email_sender.send_email(auth, message, []string{*recipient})
