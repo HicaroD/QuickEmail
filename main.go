@@ -5,6 +5,7 @@ import (
     "fmt"
     "log"
     "strings"
+    "flag"
 )
 
 type ServiceAddress struct {
@@ -65,9 +66,16 @@ func (email_sender EmailSender) authenticate_host(password string) smtp.Auth {
 }
 
 func main(){
+    email := flag.String("email", "", "Your email")
+    topic := flag.String("topic", "", "The topic of the e-mail")
+    message_body := flag.String("message", "", "The actual e-mail that you want to send")
+    recipient := flag.String("recipient", "", "The recipient e-mail")
+
+    flag.Parse()
+
     gmail_address := ServiceAddress {"smtp.gmail.com", "587"}
-    user := User {"hdanrlley1@gmail.com"}
-    message := Message {"Important topic", "Some important message for the recipient :)"}
+    user := User {*email}
+    message := Message {*topic, *message_body}
 
     email_sender := EmailSender {
         service_address: gmail_address,
@@ -76,10 +84,11 @@ func main(){
     }
 
     var password string
+    fmt.Print("Insert your password: ")
     fmt.Scanln(&password)
 
     auth := email_sender.authenticate_host(strings.TrimSpace(password))
-    err := email_sender.send_email(auth, message, []string{"hdanrlley13@gmail.com"})
+    err := email_sender.send_email(auth, message, []string{*recipient})
 
     if err != nil {
         log.Fatal(err)
