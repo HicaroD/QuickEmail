@@ -42,7 +42,7 @@ func (email_sender EmailSender) get_email_message(recipient []string, message Me
 	return []byte(msg)
 }
 
-func (email_sender EmailSender) send_email(auth smtp.Auth, message Message, recipient []string) error {
+func (email_sender EmailSender) send_email(auth smtp.Auth, message Message, recipient []string) {
 	err := smtp.SendMail(
 		email_sender.service_address.get_full_service_address(),
 		auth,
@@ -51,7 +51,9 @@ func (email_sender EmailSender) send_email(auth smtp.Auth, message Message, reci
 		email_sender.get_email_message(recipient, message),
 	)
 
-	return err
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func (email_sender EmailSender) authenticate_host(password string) smtp.Auth {
@@ -109,9 +111,7 @@ func main() {
 	}
 
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
-	err := email_sender.send_email(auth, message, []string{*recipient})
+	email_sender.send_email(auth, message, []string{*recipient})
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	fmt.Printf("E-mail successfully sent to %s", *recipient)
 }
