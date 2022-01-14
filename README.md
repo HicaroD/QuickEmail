@@ -19,17 +19,22 @@ A command-line interface for sendind emails quickly and easily. This software ab
 go install github.com/HicaroD/QuickEmail@latest
 ```
 
-This will add your program to the `~/go/bin/` folder. You can run the program with `~/go/bin/QuickEmail`
+2. Create a symbolic link on `/usr/bin` directory
+
+```bash
+sudo cp ~/go/bin/QuickEmail /usr/bin
+```
+
+After that, you can simply run the program using `QuickEmail` in the command-line directly :smiley:.
 
 ## Usage
 
 First of all, you need to allow less secure app in your Gmail configuration. In order to do that, click [here](https://myaccount.google.com/), click on "Security" in the left side, scroll down until "Less secure app access". After you find it, click on it and enable that feature. Otherwise, Gmail wouldn't allow you to send e-mail using QuickEmail. 
 
-QuickEmail is currently avaiable only for Gmail, but I have plans to extend it to Outlook in the future as well.
-
 To send an e-mail, you can use this simple command below:
+
 ```
-~/go/bin/QuickEmail from "Hicaro" -topic "The topic of your e-mail" -send "Your message" -to "Recipient's email"
+QuickEmail from "Hicaro" -topic "The topic of your e-mail" -send "Your message" -to "Recipient's email"
 ```
 
 After run this command, the program will ask you two things: e-mail and password. Your password will not be showed in the console while you type. After that, please check your "Sent" e-mails to make sure that everything was sent successfully.
