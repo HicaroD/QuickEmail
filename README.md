@@ -5,7 +5,7 @@ A command-line interface for sendind emails (Gmail) quickly and easily. This sof
 
 | Feature                                   | Status      |
 |-------------------------------------------|-------------|
-| Add support to Gmail                      | In progress |
+| Add support to Gmail                      | Done        |
 | Add support to Outlook                    | In progress |
 | Add support to email with file attachment | In progress |
 
