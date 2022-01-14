@@ -19,6 +19,7 @@ func (service_address ServiceAddress) get_full_service_address() string {
 }
 
 type User struct {
+	name  string
 	email string
 }
 
@@ -33,23 +34,26 @@ type EmailSender struct {
 	message         Message
 }
 
-func (email_sender EmailSender) get_email_message(recipient []string, message Message) []byte {
-	msg := fmt.Sprintf("To: %s\r\n"+"Subject: %s\r\n"+"\r\n"+"%s\r\n",
+func (email_sender EmailSender) get_email_message(recipient []string) []byte {
+	msg := fmt.Sprintf("From: %s <%s>\r\nTo: %s\r\n"+"Subject: %s\r\n"+"\r\n"+"%s\r\n",
+		email_sender.user.name,
+		email_sender.user.email,
 		recipient,
-		message.subject,
-		message.message_body)
+		email_sender.message.subject,
+		email_sender.message.message_body)
 
 	return []byte(msg)
 }
 
-func (email_sender EmailSender) send_email(auth smtp.Auth, message Message, recipient []string) error {
+func (email_sender EmailSender) send_email(auth smtp.Auth, recipient []string) error {
 	err := smtp.SendMail(
 		email_sender.service_address.get_full_service_address(),
 		auth,
 		email_sender.user.email,
 		recipient,
-		email_sender.get_email_message(recipient, message),
+		email_sender.get_email_message(recipient),
 	)
+
 	return err
 }
 
@@ -62,14 +66,15 @@ func (email_sender EmailSender) authenticate_host(password string) smtp.Auth {
 	return auth
 }
 
-func parse_all_command_line_arguments() (*string, *string, *string) {
+func parse_all_command_line_arguments() (*string, *string, *string, *string) {
+	username := flag.String("from", "", "Your username")
 	topic := flag.String("topic", "", "The topic of the e-mail")
 	message_body := flag.String("send", "", "The actual message that you want to send")
 	recipient := flag.String("to", "", "The recipient e-mail")
 
 	flag.Parse()
 
-	return topic, message_body, recipient
+	return username, topic, message_body, recipient
 }
 
 func ask_for_user_email() string {
@@ -91,7 +96,7 @@ func ask_for_user_password() (string, error) {
 func main() {
 	gmail_address := ServiceAddress{"smtp.gmail.com", "587"}
 
-	topic, message_body, recipient := parse_all_command_line_arguments()
+	username, topic, message_body, recipient := parse_all_command_line_arguments()
 	email := ask_for_user_email()
 	password, password_err := ask_for_user_password()
 
@@ -99,7 +104,7 @@ func main() {
 		log.Fatal(password_err)
 	}
 
-	user := User{email}
+	user := User{*username, email}
 	message := Message{*topic, *message_body}
 
 	email_sender := EmailSender{
@@ -109,10 +114,10 @@ func main() {
 	}
 
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
-	err := email_sender.send_email(auth, message, []string{*recipient})
+	email_send_err := email_sender.send_email(auth, []string{*recipient})
 
-	if err != nil {
-		log.Fatal(err)
+	if email_send_err != nil {
+		log.Fatal(email_send_err)
 	}
 
 	fmt.Printf("\nE-mail successfully sent to %s\n", *recipient)
