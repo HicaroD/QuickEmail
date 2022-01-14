@@ -29,10 +29,27 @@ QuickEmail is currently avaiable only for Gmail, but I have plans to extend it t
 
 To send an e-mail, you can use this simple command below:
 ```
-~/go/bin/QuickEmail -topic "The topic of your e-mail" -send "Your message" -to "Email recipient"
+~/go/bin/QuickEmail from "Hicaro" -topic "The topic of your e-mail" -send "Your message" -to "Recipient's email"
 ```
 
 After run this command, the program will ask you two things: e-mail and password. Your password will not be showed in the console while you type. After that, please check your "Sent" e-mails to make sure that everything was sent successfully.
+
+## Help
+
+If you want to know how these flags work. You can run `./QuickEmail -h`. That's gonna be the output.
+
+```bash
+$ ./QuickEmail -h                                                                                      
+Usage of ./QuickEmail:
+  -from string
+    	Your username
+  -send string
+    	The actual message that you want to send
+  -to string
+    	The recipient e-mail
+  -topic string
+    	The topic of the e-mail
+```
 
 ## License
 [MIT](./LICENSE)
