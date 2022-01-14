@@ -1,6 +1,14 @@
 # QuickEmail
 A command-line interface for sendind emails (Gmail) quickly and easily. This software abstracts the connection to the Gmail SMTP server to make your life easier.
 
+- Progress:
+
+| Feature                                   | Status      |
+|-------------------------------------------|-------------|
+| Add support to Gmail                      | In progress |
+| Add support to Outlook                    | In progress |
+| Add support to email with file attachment | In progress |
+
 ## Requirements
 
 1. [Golang@1.17.6](https://go.dev/dl/) or more recent.
