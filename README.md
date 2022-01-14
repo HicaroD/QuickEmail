@@ -23,10 +23,11 @@ This will add your program to the `~/go/bin/` folder. You can run the program wi
 
 ## Usage
 
-First of all, you need to allow less secure app in your Gmail configuration. In order to do that, click [here](https://myaccount.google.com/), click on "Security" in the left side, scroll down until "Less secure app access". After you find it, click on it and enable that feature. Otherwise, Gmail wouldn't allow you to send e-mail using QuickEmail.
+First of all, you need to allow less secure app in your Gmail configuration. In order to do that, click [here](https://myaccount.google.com/), click on "Security" in the left side, scroll down until "Less secure app access". After you find it, click on it and enable that feature. Otherwise, Gmail wouldn't allow you to send e-mail using QuickEmail. 
 
-Now you can run this command to send an e-mail.
+QuickEmail is currently avaiable only for Gmail, but I have plans to extend it to Outlook in the future as well.
 
+To send an e-mail, you can use this simple command below:
 ```
 ~/go/bin/QuickEmail -topic "The topic of your e-mail" -send "Your message" -to "Email recipient"
 ```
