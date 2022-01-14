@@ -32,7 +32,7 @@ To send an e-mail, you can use this simple command below:
 ~/go/bin/QuickEmail -topic "The topic of your e-mail" -send "Your message" -to "Email recipient"
 ```
 
-After run this command, the program will ask you two things: e-mail and password. Your password will not be showed in the console while you type!
+After run this command, the program will ask you two things: e-mail and password. Your password will not be showed in the console while you type. After that, please check your "Sent" e-mails to make sure that everything was sent successfully.
 
 ## License
 [MIT](./LICENSE)
