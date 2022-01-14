@@ -1,12 +1,12 @@
 # QuickEmail
 A command-line interface for sendind emails quickly and easily. This software abstracts the connection to the Gmail SMTP server to make your life easier.
 
-| Feature                                           | Status             |
-|---------------------------------------------------|--------------------|
-| Support for Gmail                                 | :heavy_check_mark: |
-| Support for Outlook                               | :x:                |
-| Support for file attachments                      | :x:                |
-| Support to send e-mail to multiple recipients     | :x:                |
+| Feature                                                  | Status             |
+|----------------------------------------------------------|--------------------|
+| Support for Gmail                                        | :heavy_check_mark: |
+| Support for Outlook                                      | :x:                |
+| Support for file attachments                             | :x:                |
+| Support for sending an e-mail to multiple recipients     | :x:                |
 
 ## Requirements
 
