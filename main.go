@@ -42,7 +42,7 @@ func (email_sender EmailSender) get_email_message(recipient []string, message Me
 	return []byte(msg)
 }
 
-func (email_sender EmailSender) send_email(auth smtp.Auth, message Message, recipient []string) {
+func (email_sender EmailSender) send_email(auth smtp.Auth, message Message, recipient []string) error {
 	err := smtp.SendMail(
 		email_sender.service_address.get_full_service_address(),
 		auth,
@@ -50,10 +50,7 @@ func (email_sender EmailSender) send_email(auth smtp.Auth, message Message, reci
 		recipient,
 		email_sender.get_email_message(recipient, message),
 	)
-
-	if err != nil {
-		log.Fatal(err)
-	}
+	return err
 }
 
 func (email_sender EmailSender) authenticate_host(password string) smtp.Auth {
@@ -84,22 +81,23 @@ func ask_for_user_email() string {
 	return email
 }
 
-func ask_for_user_password() string {
+func ask_for_user_password() (string, error) {
 	fmt.Print("Insert your password (INVISIBLE INPUT): ")
 	password, err := terminal.ReadPassword(0)
 
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return string(password)
+	return string(password), err
 }
 
 func main() {
 	gmail_address := ServiceAddress{"smtp.gmail.com", "587"}
 
 	topic, message_body, recipient := parse_all_command_line_arguments()
-	email, password := ask_for_user_email(), ask_for_user_password()
+	email := ask_for_user_email()
+	password, password_err := ask_for_user_password()
+
+	if password_err != nil {
+		log.Fatal(password_err)
+	}
 
 	user := User{email}
 	message := Message{*topic, *message_body}
@@ -111,7 +109,11 @@ func main() {
 	}
 
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
-	email_sender.send_email(auth, message, []string{*recipient})
+	err := email_sender.send_email(auth, message, []string{*recipient})
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	fmt.Printf("\nE-mail successfully sent to %s\n", *recipient)
 }
