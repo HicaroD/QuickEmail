@@ -5,10 +5,6 @@ import (
     "flag"
 )
 
-func is_empty(flag_value string) bool {
-	return strings.TrimSpace(flag_value) == ""
-}
-
 func Parse_all_command_line_arguments() (string, string, string, string) {
 	username := flag.String("from", "", "Your username")
 	topic := flag.String("topic", "", "The topic of the e-mail")
