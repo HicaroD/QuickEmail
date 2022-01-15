@@ -1,12 +1,13 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"golang.org/x/crypto/ssh/terminal"
 	"log"
 	"net/smtp"
 	"strings"
+
+    command_line_parser "github.com/HicaroD/QuickEmail/command_line_parser"
 )
 
 type ServiceAddress struct {
@@ -66,17 +67,6 @@ func (email_sender EmailSender) authenticate_host(password string) smtp.Auth {
 	return auth
 }
 
-func parse_all_command_line_arguments() (*string, *string, *string, *string) {
-	username := flag.String("from", "", "Your username")
-	topic := flag.String("topic", "", "The topic of the e-mail")
-	message_body := flag.String("send", "", "The actual message that you want to send")
-	recipient := flag.String("to", "", "The recipient e-mail")
-
-	flag.Parse()
-
-	return username, topic, message_body, recipient
-}
-
 func ask_for_user_email() string {
 	var email string
 
@@ -96,7 +86,7 @@ func ask_for_user_password() (string, error) {
 func main() {
 	gmail_address := ServiceAddress{"smtp.gmail.com", "587"}
 
-	username, topic, message_body, recipient := parse_all_command_line_arguments()
+	username, topic, message_body, recipient := command_line_parser.Parse_all_command_line_arguments()
 	email := ask_for_user_email()
 	password, password_err := ask_for_user_password()
 
@@ -104,8 +94,8 @@ func main() {
 		log.Fatal(password_err)
 	}
 
-	user := User{*username, email}
-	message := Message{*topic, *message_body}
+	user := User{username, email}
+	message := Message{topic, message_body}
 
 	email_sender := EmailSender{
 		service_address: gmail_address,
@@ -114,11 +104,11 @@ func main() {
 	}
 
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
-	email_send_err := email_sender.send_email(auth, []string{*recipient})
+	email_send_err := email_sender.send_email(auth, []string{recipient})
 
 	if email_send_err != nil {
 		log.Fatal(email_send_err)
 	}
 
-	fmt.Printf("\nE-mail successfully sent to %s\n", *recipient)
+	fmt.Printf("\nE-mail successfully sent to %s\n", recipient)
 }
