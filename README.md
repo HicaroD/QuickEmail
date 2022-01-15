@@ -45,7 +45,7 @@ After run this command, the program will ask you two things: e-mail and password
 If you want to know how these flags work. You can run `./QuickEmail -h`.
 
 ```bash
-$ ./QuickEmail -h                                                                                      
+$ ./QuickEmail -h
 Usage of ./QuickEmail:
   -from string
     	Your username
