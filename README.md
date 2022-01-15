@@ -42,7 +42,7 @@ After run any command, the program will ask you two things: e-mail and password.
 
 ## Help
 
-If you want to know how these flags work. You can run `./QuickEmail -h`.
+If you want to know how these flags work, run `QuickEmail -h`.
 
 ```bash
 $ ./QuickEmail -h
