@@ -14,16 +14,10 @@ A command-line interface for sendind emails quickly and easily. This software ab
 
 ## Installation
 
-1. Install the latest version of the program
+1. Install the latest version of the program in `usr/bin`
 
 ```bash
-go install github.com/HicaroD/QuickEmail@latest
-```
-
-2. Copy the binary to `/usr/bin` directory
-
-```bash
-sudo cp ~/go/bin/QuickEmail /usr/bin
+GOBIN=/usr/bin/ go install github.com/HicaroD/QuickEmail@latest
 ```
 
 After that, you can simply run the program using `QuickEmail` in the command-line directly :smiley:.
