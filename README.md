@@ -37,7 +37,7 @@ After run any command, the program will ask you two things: e-mail and password.
 1. **Send a simple e-mail**
 
     ```
-    QuickEmail from "Hicaro" -topic "The topic of your e-mail" -send "Your message" -to "Recipient's email"
+    QuickEmail -from "Hicaro" -topic "The topic of your e-mail" -send "Your message" -to "Recipient's email"
     ```
 
 ## Help
