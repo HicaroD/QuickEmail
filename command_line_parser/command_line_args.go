@@ -1,9 +1,6 @@
 package command_line_parser
 
-import (
-    "strings"
-    "flag"
-)
+import "flag"
 
 func Parse_all_command_line_arguments() (string, string, string, string) {
 	username := flag.String("from", "", "Your username")
@@ -13,5 +10,5 @@ func Parse_all_command_line_arguments() (string, string, string, string) {
 
 	flag.Parse()
 
-	return username, topic, message_body, recipient
+	return *username, *topic, *message_body, *recipient
 }
