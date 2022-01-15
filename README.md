@@ -20,7 +20,7 @@ A command-line interface for sendind emails quickly and easily. This software ab
 go install github.com/HicaroD/QuickEmail@latest
 ```
 
-2. Create a symbolic link on `/usr/bin` directory
+2. Copy the binary to `/usr/bin` directory
 
 ```bash
 sudo cp ~/go/bin/QuickEmail /usr/bin
