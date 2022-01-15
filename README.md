@@ -32,7 +32,7 @@ After that, you can simply run the program using `QuickEmail` in the command-lin
 
 First of all, you need to allow less secure app in your Gmail configuration. In order to do that, click [here](https://myaccount.google.com/), click on "Security" in the left side, scroll down until "Less secure app access". After you find it, click on it and enable that feature. Otherwise, Gmail wouldn't allow you to send e-mail using QuickEmail. 
 
-To send an e-mail, you can use this simple command below:
+1. **Send a simple e-mail**
 
 ```
 QuickEmail from "Hicaro" -topic "The topic of your e-mail" -send "Your message" -to "Recipient's email"
