@@ -36,7 +36,7 @@ type EmailSender struct {
 }
 
 func (email_sender EmailSender) get_email_message(recipient []string) []byte {
-	msg := fmt.Sprintf("From: %s <%s>\r\nTo: %s\r\n"+"Subject: %s\r\n"+"\r\n"+"%s\r\n",
+	msg := fmt.Sprintf("From: %s <%s>\r\nTo: <%s>\r\n"+"Subject: %s\r\n"+"\r\n"+"%s\r\n",
 		email_sender.user.name,
 		email_sender.user.email,
 		recipient,
@@ -104,7 +104,9 @@ func main() {
 	}
 
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
-	email_send_err := email_sender.send_email(auth, []string{recipient})
+    recipients := string[]{recipient}
+
+	email_send_err := email_sender.send_email(auth, recipients)
 
 	if email_send_err != nil {
 		log.Fatal(email_send_err)
