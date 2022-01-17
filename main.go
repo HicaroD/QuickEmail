@@ -83,10 +83,28 @@ func ask_for_user_password() (string, error) {
 	return string(password), err
 }
 
+func has_more_than_one_recipient_email(recipient string) bool {
+    return strings.Contains(recipient, ";")
+}
+
+func extract_recipient_emails_from_argument(command_line_argument_for_recipient string) []string {
+    var recipients []string
+
+    if has_more_than_one_recipient_email(command_line_argument_for_recipient){
+        recipients = strings.Split(command_line_argument_for_recipient, ";")
+    } else {
+        recipients = []string{command_line_argument_for_recipient}
+    }
+    
+    return recipients
+}
+
 func main() {
 	gmail_address := ServiceAddress{"smtp.gmail.com", "587"}
 
 	username, topic, message_body, recipient := command_line_parser.Parse_all_command_line_arguments()
+    recipients := extract_recipient_emails_from_argument(recipient)
+
 	email := ask_for_user_email()
 	password, password_err := ask_for_user_password()
 
@@ -104,7 +122,6 @@ func main() {
 	}
 
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
-    recipients := string[]{recipient}
 
 	email_send_err := email_sender.send_email(auth, recipients)
 
@@ -112,5 +129,5 @@ func main() {
 		log.Fatal(email_send_err)
 	}
 
-	fmt.Printf("\nE-mail successfully sent to %s\n", recipient)
+    fmt.Printf("\nOperation successfully completed!\n")
 }
