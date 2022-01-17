@@ -37,6 +37,7 @@ After run any command, the program will ask you two things: e-mail and password.
 2. **Send an e-mail to multiple recipients**
 
 The command is basically the same, but in the `to` flag, you have to separate the recipient's e-mails with a semicolon.
+
     ```
     ./QuickEmail -from "Your name" -topic "The topic of your e-mail" -send "The message" -to "example1@gmail.com;example2@gmail.com"
     ```
