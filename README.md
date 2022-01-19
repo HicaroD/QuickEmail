@@ -68,5 +68,11 @@ Usage of ./QuickEmail:
     	The topic of the e-mail
 ```
 
+## FAQ
+
+1. Where is Outlook support?
+
+    As far as I can say, Outlook doesn't allow me to send e-mail easily. I'll be working on that and do my best to implement it, but I might give up on it. We'll see.
+
 ## License
 [MIT](./LICENSE)
