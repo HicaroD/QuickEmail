@@ -5,8 +5,17 @@ A command-line interface for sendind emails quickly and easily. This software ab
 |----------------------------------------------------------|--------------------|
 | Support for Gmail                                        | :heavy_check_mark: |
 | Support for sending an e-mail to multiple recipients     | :heavy_check_mark: |
-| Support for Outlook                                      | :x:                |
 | Support for file attachments                             | :x:                |
+
+
+## Summary
+1. [Requirements](#requirements)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Help](#help)
+5. [FAQ (Frequently Asked Questions)](#faq)
+6. [License](#license)
+
 
 ## Requirements
 
