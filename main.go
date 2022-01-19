@@ -10,6 +10,8 @@ import (
 	command_line_parser "github.com/HicaroD/QuickEmail/command_line_parser"
 )
 
+const SMTP_PORT = "587"
+
 type ServiceAddress struct {
 	host string
 	port string
@@ -100,10 +102,10 @@ func extract_recipient_emails_from_argument(command_line_argument_for_recipient 
 }
 
 func main() {
-	gmail_address := ServiceAddress{"smtp.gmail.com", "587"}
-
 	username, topic, message_body, recipient := command_line_parser.Parse_all_command_line_arguments()
 	recipients := extract_recipient_emails_from_argument(recipient)
+
+    service_info := ServiceAddress{"smtp.gmail.com", SMTP_PORT}
 
 	email := ask_for_user_email()
 	password, password_err := ask_for_user_password()
@@ -116,7 +118,7 @@ func main() {
 	message := Message{topic, message_body}
 
 	email_sender := EmailSender{
-		service_address: gmail_address,
+		service_address: service_info,
 		user:            user,
 		message:         message,
 	}
