@@ -131,5 +131,5 @@ func main() {
 		log.Fatal(email_send_err)
 	}
 
-	fmt.Printf("\nE-mail was sent successfully\n")
+	fmt.Printf("\nE-mail was sent successfully!\n")
 }
