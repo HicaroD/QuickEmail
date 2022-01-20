@@ -55,14 +55,13 @@ After run any command, the program will ask you two things: e-mail and password.
 If you want to know how these flags work, run `QuickEmail -h`.
 
 ```bash
-$ QuickEmail -h
-Usage of ./QuickEmail:
+Usage of QuickEmail:
   -from string
     	Your username
   -send string
     	The actual message that you want to send
   -to string
-    	The recipient e-mail
+    	The recipient's e-mail
   -topic string
     	The topic of the e-mail
 ```
