@@ -105,7 +105,7 @@ func main() {
 	username, topic, message_body, recipient := command_line_parser.Parse_all_command_line_arguments()
 	recipients := extract_recipient_emails_from_argument(recipient)
 
-    service_info := ServiceAddress{"smtp.gmail.com", SMTP_PORT}
+	service_info := ServiceAddress{"smtp.gmail.com", SMTP_PORT}
 
 	email := ask_for_user_email()
 	password, password_err := ask_for_user_password()
