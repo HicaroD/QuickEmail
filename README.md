@@ -3,8 +3,8 @@ A command-line interface for sendind emails quickly and easily. This software ab
 
 | Feature                                                  | Status             |
 |----------------------------------------------------------|--------------------|
-| Support for Gmail                                        | :heavy_check_mark: |
-| Support for sending an e-mail to multiple recipients     | :heavy_check_mark: |
+| **Support for Gmail**                                    | :heavy_check_mark: |
+| **Support for sending an e-mail to multiple recipients** | :heavy_check_mark: |
 
 
 ## Summary
@@ -69,11 +69,11 @@ Usage of ./QuickEmail:
 
 ## FAQ
 
-1. Where is Outlook support?
+1. **Where is Outlook support?**
 
     As far as I can say, Outlook doesn't allow me to send e-mail easily. I'll be working on that and do my best to implement it, but I might give up on it. We'll see.
 
-2. Does QuickEmail supports file attachments?
+2. **Does QuickEmail supports file attachments?**
 
     It currently doesn't support this feature, maybe in the future it will! 
 
