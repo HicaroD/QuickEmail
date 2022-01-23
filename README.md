@@ -30,6 +30,8 @@ A command-line interface for sendind emails quickly and easily. This software ab
 
     After that, you can simply run the program using `QuickEmail` in the command-line directly :smiley:.
 
+    If you're having problems with permission, try adding `sudo` at the beginning of the command. Now you can run it again and everything should work properly.
+
 ## Usage
 
 First of all, you need to allow less secure app in your Gmail configuration. In order to do that, click [here](https://myaccount.google.com/), click on "Security" in the left side, scroll down until "Less secure app access". After you find it, click on it and enable that feature. Otherwise, Gmail wouldn't allow you to send e-mail using QuickEmail. 
