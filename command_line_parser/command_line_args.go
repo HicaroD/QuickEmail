@@ -1,6 +1,9 @@
 package command_line_parser
 
-import "flag"
+import (
+	"flag"
+	"log"
+)
 
 func Parse_all_command_line_arguments() (string, string, string, string) {
 	username := flag.String("from", "", "Your username")
@@ -9,6 +12,10 @@ func Parse_all_command_line_arguments() (string, string, string, string) {
 	recipient := flag.String("to", "", "The recipient's e-mail")
 
 	flag.Parse()
+
+	if *username == "" || *topic == "" || *message_body == "" || *recipient == "" {
+		log.Fatalf("Every argument should be passed. Please, see 'Help' section on github.com/HicaroD/QuickEmail/#help")
+	}
 
 	return *username, *topic, *message_body, *recipient
 }
