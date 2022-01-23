@@ -1,5 +1,5 @@
 # QuickEmail
-A command-line interface for sendind emails quickly and easily. This software abstracts the connection to the Gmail SMTP server to make your life easier.
+A command-line interface for sendind emails quickly and easily. This software abstracts the SMTP server's complexity to make your life easier.
 
 | Feature                                                  | Status             |
 |----------------------------------------------------------|--------------------|
