@@ -44,6 +44,6 @@ func TestExtractSingleRecipient(t *testing.T) {
 	expected_output := []string{"example@service.com"}
 
 	if !reflect.DeepEqual(extracted_recipients_email, expected_output) {
-		t.Errorf("Invalid recipient. See: %v", extracted_recipients_email)
+		t.errorf("invalid recipient. see: %v", extracted_recipients_email)
 	}
 }
