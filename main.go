@@ -1,12 +1,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"golang.org/x/crypto/ssh/terminal"
 	"log"
 	"net/smtp"
 	"strings"
-    "flag"
 )
 
 func parse_all_command_line_arguments() (string, string, string, string) {
