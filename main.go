@@ -6,9 +6,23 @@ import (
 	"log"
 	"net/smtp"
 	"strings"
-
-	command_line_parser "github.com/HicaroD/QuickEmail/command_line_parser"
+    "flag"
 )
+
+func parse_all_command_line_arguments() (string, string, string, string) {
+	username := flag.String("from", "", "Your username")
+	topic := flag.String("topic", "", "The topic of the e-mail")
+	message_body := flag.String("send", "", "The actual message that you want to send")
+	recipient := flag.String("to", "", "The recipient's e-mail")
+
+	flag.Parse()
+
+	if *username == "" || *topic == "" || *message_body == "" || *recipient == "" {
+		log.Fatalf("Every argument should be passed. Please, see 'Help' section on github.com/HicaroD/QuickEmail/#help")
+	}
+
+	return *username, *topic, *message_body, *recipient
+}
 
 const SMTP_PORT = "587"
 
@@ -102,7 +116,7 @@ func extract_recipient_emails_from_argument(command_line_argument_for_recipient 
 }
 
 func main() {
-	username, topic, message_body, recipient := command_line_parser.Parse_all_command_line_arguments()
+	username, topic, message_body, recipient := parse_all_command_line_arguments()
 	recipients := extract_recipient_emails_from_argument(recipient)
 
 	service_info := ServiceAddress{"smtp.gmail.com", SMTP_PORT}
