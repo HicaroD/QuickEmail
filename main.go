@@ -99,19 +99,8 @@ func ask_for_user_password() (string, error) {
 	return string(password), err
 }
 
-func has_more_than_one_recipient_email(recipient string) bool {
-	return strings.Contains(recipient, ";")
-}
-
 func extract_recipient_emails_from_argument(command_line_argument_for_recipient string) []string {
-	var recipients []string
-
-	if has_more_than_one_recipient_email(command_line_argument_for_recipient) {
-		recipients = strings.Split(command_line_argument_for_recipient, ";")
-	} else {
-		recipients = []string{command_line_argument_for_recipient}
-	}
-
+    recipients := strings.Split(command_line_argument_for_recipient, ";")
 	return recipients
 }
 
