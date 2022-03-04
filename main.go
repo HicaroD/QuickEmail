@@ -113,8 +113,10 @@ func extract_recipient_emails_from_argument(recipient_argument string) []string 
 }
 
 func main() {
+    var err error
+
 	username, topic, message_body, recipient := parse_all_command_line_arguments()
-	recipients, err := extract_recipient_emails_from_argument(recipient)
+	recipients := extract_recipient_emails_from_argument(recipient)
 	service_info := ServiceAddress{"smtp.gmail.com", GMAIL_SMTP_PORT}
 
 	email, err := ask_for_user_email()
