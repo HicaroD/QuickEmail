@@ -100,7 +100,7 @@ func ask_for_user_password() (string, error) {
 }
 
 func extract_recipient_emails_from_argument(command_line_argument_for_recipient string) []string {
-    recipients := strings.Split(command_line_argument_for_recipient, ";")
+	recipients := strings.Split(command_line_argument_for_recipient, ";")
 	return recipients
 }
 
