@@ -104,10 +104,6 @@ func ask_for_user_password() (string, error) {
 		return "", fmt.Errorf("Password shouldn't be empty")
 	}
 
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	return string(password), err
 }
 
