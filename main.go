@@ -24,7 +24,7 @@ func parse_all_command_line_arguments() (string, string, string, string) {
 	return *username, *topic, *message_body, *recipient
 }
 
-const SMTP_PORT = "587"
+const GMAIL_SMTP_PORT = "587"
 
 type ServiceAddress struct {
 	host string
@@ -83,38 +83,62 @@ func (email_sender EmailSender) authenticate_host(password string) smtp.Auth {
 	return auth
 }
 
-func ask_for_user_email() string {
+func ask_for_user_email() (string, error) {
 	var email string
 
 	fmt.Print("Insert your e-mail: ")
 	fmt.Scanln(&email)
 
-	return email
+	if email == "" {
+		return "", fmt.Errorf("\nE-mail should not be empty!")
+	}
+
+	return email, nil
 }
 
 func ask_for_user_password() (string, error) {
 	fmt.Print("Insert your password (INVISIBLE INPUT): ")
 	password, err := terminal.ReadPassword(0)
 
+	if string(password) == "" {
+		return "", fmt.Errorf("Password shouldn't be empty")
+	}
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	return string(password), err
 }
 
-func extract_recipient_emails_from_argument(command_line_argument_for_recipient string) []string {
-	recipients := strings.Split(command_line_argument_for_recipient, ";")
-	return recipients
+func extract_recipient_emails_from_argument(recipient_argument string) ([]string, error) {
+	if recipient_argument == "" {
+		return nil, fmt.Errorf("You should pass at least one recipient!")
+	}
+	recipients := strings.Split(recipient_argument, ";")
+	return recipients, nil
 }
 
 func main() {
 	username, topic, message_body, recipient := parse_all_command_line_arguments()
-	recipients := extract_recipient_emails_from_argument(recipient)
+	recipients, err := extract_recipient_emails_from_argument(recipient)
 
-	service_info := ServiceAddress{"smtp.gmail.com", SMTP_PORT}
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	email := ask_for_user_email()
-	password, password_err := ask_for_user_password()
+	service_info := ServiceAddress{"smtp.gmail.com", GMAIL_SMTP_PORT}
 
-	if password_err != nil {
-		log.Fatal(password_err)
+	email, err := ask_for_user_email()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	password, err := ask_for_user_password()
+
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	user := User{username, email}
@@ -128,10 +152,10 @@ func main() {
 
 	auth := email_sender.authenticate_host(strings.TrimSpace(password))
 
-	email_send_err := email_sender.send_email(auth, recipients)
+	err = email_sender.send_email(auth, recipients)
 
-	if email_send_err != nil {
-		log.Fatal(email_send_err)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	fmt.Printf("\nE-mail was sent successfully!\n")
