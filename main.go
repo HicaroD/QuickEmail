@@ -113,7 +113,7 @@ func extract_recipient_emails_from_argument(recipient_argument string) []string 
 }
 
 func main() {
-    var err error
+	var err error
 
 	username, topic, message_body, recipient := parse_all_command_line_arguments()
 	recipients := extract_recipient_emails_from_argument(recipient)
