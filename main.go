@@ -107,22 +107,14 @@ func ask_for_user_password() (string, error) {
 	return string(password), err
 }
 
-func extract_recipient_emails_from_argument(recipient_argument string) ([]string, error) {
-	if recipient_argument == "" {
-		return nil, fmt.Errorf("You should pass at least one recipient!")
-	}
+func extract_recipient_emails_from_argument(recipient_argument string) []string {
 	recipients := strings.Split(recipient_argument, ";")
-	return recipients, nil
+	return recipients
 }
 
 func main() {
 	username, topic, message_body, recipient := parse_all_command_line_arguments()
 	recipients, err := extract_recipient_emails_from_argument(recipient)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	service_info := ServiceAddress{"smtp.gmail.com", GMAIL_SMTP_PORT}
 
 	email, err := ask_for_user_email()
