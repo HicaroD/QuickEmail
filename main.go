@@ -72,12 +72,12 @@ func (email_sender EmailSender) get_email_message(recipient []string) ([]byte, e
 func (email_sender EmailSender) send_email(auth smtp.Auth, recipient []string) error {
 	full_service_address, err := email_sender.service_address.get_full_service_address()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	email_message, err := email_sender.get_email_message(recipient)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	err = smtp.SendMail(
@@ -142,6 +142,7 @@ func main() {
 
 	username, topic, message_body, recipient := parse_all_command_line_arguments()
 	service_info := ServiceAddress{"smtp.gmail.com", GMAIL_SMTP_PORT}
+
 
 	recipients, err := extract_recipient_emails_from_argument(recipient)
 	if err != nil {
