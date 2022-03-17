@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func parse_all_command_line_arguments() (string, string, string, string) {
+func ParseAllCommandLineArguments() (string, string, string, string) {
 	username := flag.String("from", "", "Your username")
 	topic := flag.String("topic", "", "The topic of the e-mail")
 	message_body := flag.String("send", "", "The actual message that you want to send")
@@ -31,7 +31,7 @@ type ServiceAddress struct {
 	port string
 }
 
-func (service_address ServiceAddress) get_full_service_address() (string, error) {
+func (service_address ServiceAddress) GetFullServiceAddress() (string, error) {
 	if service_address.host == "" || service_address.port == "" {
 		return "", fmt.Errorf("Service address or port shouldn't be empty")
 	}
@@ -54,7 +54,7 @@ type EmailSender struct {
 	message         Message
 }
 
-func (email_sender EmailSender) get_email_message(recipient []string) ([]byte, error) {
+func (email_sender EmailSender) GetEmailMessage(recipient []string) ([]byte, error) {
 	if len(recipient) == 0 {
 		return nil, fmt.Errorf("At least one recipient should be passed")
 	}
@@ -69,13 +69,13 @@ func (email_sender EmailSender) get_email_message(recipient []string) ([]byte, e
 	return []byte(msg), nil
 }
 
-func (email_sender EmailSender) send_email(auth smtp.Auth, recipient []string) error {
-	full_service_address, err := email_sender.service_address.get_full_service_address()
+func (email_sender EmailSender) SendEmail(auth smtp.Auth, recipient []string) error {
+	full_service_address, err := email_sender.service_address.GetFullServiceAddress()
 	if err != nil {
 		return err
 	}
 
-	email_message, err := email_sender.get_email_message(recipient)
+	email_message, err := email_sender.GetEmailMessage(recipient)
 	if err != nil {
 		return err
 	}
@@ -91,7 +91,7 @@ func (email_sender EmailSender) send_email(auth smtp.Auth, recipient []string) e
 	return err
 }
 
-func (email_sender EmailSender) authenticate_host(password string) (smtp.Auth, error) {
+func (email_sender EmailSender) AuthenticateHost(password string) (smtp.Auth, error) {
 	if password == "" {
 		return nil, fmt.Errorf("Password shouldn't be empty")
 	}
@@ -104,7 +104,7 @@ func (email_sender EmailSender) authenticate_host(password string) (smtp.Auth, e
 	return auth, nil
 }
 
-func ask_for_user_email() (string, error) {
+func AskForUserEmail() (string, error) {
 	var email string
 
 	fmt.Print("Insert your e-mail: ")
@@ -117,7 +117,7 @@ func ask_for_user_email() (string, error) {
 	return email, nil
 }
 
-func ask_for_user_password() (string, error) {
+func AskForUserPassword() (string, error) {
 	fmt.Print("Insert your password (INVISIBLE INPUT): ")
 	password, err := terminal.ReadPassword(0)
 
@@ -128,7 +128,7 @@ func ask_for_user_password() (string, error) {
 	return string(password), err
 }
 
-func extract_recipient_emails_from_argument(recipient_argument string) ([]string, error) {
+func ExtractRecipientEmailsFromArgument(recipient_argument string) ([]string, error) {
 	if recipient_argument == "" {
 		return nil, fmt.Errorf("You should pass at least one recipient")
 	}
@@ -140,21 +140,21 @@ func extract_recipient_emails_from_argument(recipient_argument string) ([]string
 func main() {
 	var err error
 
-	username, topic, message_body, recipient := parse_all_command_line_arguments()
+	username, topic, message_body, recipient := ParseAllCommandLineArguments()
 	service_info := ServiceAddress{"smtp.gmail.com", GMAIL_SMTP_PORT}
 
 
-	recipients, err := extract_recipient_emails_from_argument(recipient)
+	recipients, err := ExtractRecipientEmailsFromArgument(recipient)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	email, err := ask_for_user_email()
+	email, err := AskForUserEmail()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	password, err := ask_for_user_password()
+	password, err := AskForUserPassword()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -168,9 +168,9 @@ func main() {
 		message:         message,
 	}
 
-	auth, err := email_sender.authenticate_host(strings.TrimSpace(password))
+	auth, err := email_sender.AuthenticateHost(strings.TrimSpace(password))
 
-	err = email_sender.send_email(auth, recipients)
+	err = email_sender.SendEmail(auth, recipients)
 	if err != nil {
 		log.Fatal(err)
 	}
