@@ -11,7 +11,7 @@ func TestGetFullServiceAddress(t *testing.T) {
 		"587",
 	}
 
-	full_service_address := service_address.get_full_service_address()
+	full_service_address, _ := service_address.GetFullServiceAddress()
 
 	if full_service_address != "stmp.example.com:587" {
 		t.Errorf("Service address is not valid!")
@@ -21,7 +21,7 @@ func TestGetFullServiceAddress(t *testing.T) {
 func TestHasMoreThanOneRecipient(t *testing.T) {
 	recipients := "example@service.com;example2@service.com"
 
-	if !has_more_than_one_recipient_email(recipients) {
+	if len(recipients) < 2 {
 		t.Errorf("It has more than recipient email")
 	}
 }
@@ -29,7 +29,7 @@ func TestHasMoreThanOneRecipient(t *testing.T) {
 func TestExtractMultipleRecipients(t *testing.T) {
 	recipients := "example@service.com;example2@service.com"
 
-	extracted_recipients_email := extract_recipient_emails_from_argument(recipients)
+	extracted_recipients_email, _ := ExtractRecipientEmailsFromArgument(recipients)
 	expected_output := []string{"example@service.com", "example2@service.com"}
 
 	if !reflect.DeepEqual(extracted_recipients_email, expected_output) {
@@ -40,10 +40,10 @@ func TestExtractMultipleRecipients(t *testing.T) {
 func TestExtractSingleRecipient(t *testing.T) {
 	recipients := "example@service.com"
 
-	extracted_recipients_email := extract_recipient_emails_from_argument(recipients)
+	extracted_recipients_email, _ := ExtractRecipientEmailsFromArgument(recipients)
 	expected_output := []string{"example@service.com"}
 
 	if !reflect.DeepEqual(extracted_recipients_email, expected_output) {
-		t.errorf("invalid recipient. see: %v", extracted_recipients_email)
+		t.Errorf("invalid recipient. see: %v", extracted_recipients_email)
 	}
 }
